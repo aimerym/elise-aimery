@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum des invités - Mariage Aimery & Elise</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        nav {
+            background-color: #5d9464;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 13.5px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f3f3f3;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #5d9464;
+        }
+
+        .filter {
+            margin-bottom: 20px;
+        }
+
+        .new-topic {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #5d9464;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #4a7652;
+        }
+
+        .topics {
+            margin-top: 20px;
+        }
+
+        .topic {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f3f3f3;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .comments {
+            margin-top: 15px;
+            padding-left: 20px;
+            border-left: 2px solid #ddd;
+        }
+
+        .comment {
+            margin-bottom: 10px;
+        }
+
+        .comment strong {
+            color: #5d9464;
+        }
+
+        .status {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .status.open {
+            color: green;
+        }
+
+        .status.closed {
+            color: red;
+        }
+
+        .status-button {
+            display: inline-block;
+            background-color: #ddd;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .status-button:hover {
+            background-color: #bbb;
+        }
+
+        .filter label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="programme.html">Programme</a></li>
+            <li><a href="lieu.html">Lieu & Hébergement</a></li>
+            <li><a href="presence.html">Présence & Repas</a></li>
+            <li><a href="liste-mariage.html">Liste de mariage</a></li>
+            <li><a href="forum.html">Forum des invités</a></li>
+            <li><a href="contact.html">Nous contacter</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Forum des invités</h1>
+    </header>
+
+    <div class="content">
+        <h2>Échangez entre vous</h2>
+
+        <!-- Filtre -->
+        <div class="filter">
+            <label for="filter-status">Afficher :</label>
+            <select id="filter-status" onchange="filterTopics()">
+                <option value="open">Sujets en cours</option>
+                <option value="all">Tous les sujets</option>
+            </select>
+        </div>
+
+        <!-- Formulaire pour nouveau sujet -->
+        <div class="new-topic">
+            <h3>Lancer un nouveau sujet</h3>
+            <input type="text" id="topic-author" placeholder="Votre nom" required>
+            <input type="text" id="topic-title" placeholder="Titre du sujet" required>
+            <select id="topic-category">
+                <option value="Covoiturage">Covoiturage</option>
+                <option value="Logement">Logement</option>
+                <option value="Divers">Divers</option>
+            </select>
+            <textarea id="topic-message" rows="4" placeholder="Description du sujet" required></textarea>
+            <button onclick="addTopic()">Créer le sujet</button>
+        </div>
+
+        <!-- Liste des sujets -->
+        <div class="topics" id="topics">
+            <!-- Les sujets apparaîtront ici -->
+        </div>
+    </div>
+
+    <script>
+        const topicsContainer = document.getElementById('topics');
+        const filterStatus = document.getElementById('filter-status');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            filterStatus.value = 'open';
+            filterTopics();
+        });
+
+        function addTopic() {
+            const author = document.getElementById('topic-author').value.trim();
+            const title = document.getElementById('topic-title').value.trim();
+            const category = document.getElementById('topic-category').value;
+            const message = document.getElementById('topic-message').value.trim();
+
+            if (author && title && message) {
+                const topic = document.createElement('div');
+                topic.classList.add('topic');
+                topic.setAttribute('data-status', 'open');
+                topic.innerHTML = `
+                    <button class="status-button" onclick="toggleStatus(this)">Ouvrir/Fermer le sujet</button>
+                    <h3>${title} <span style="font-size: 0.8em; color: #777;">(par ${author}, ${category})</span> - <span class="status open">(En cours)</span></h3>
+                    <p>${message}</p>
+                    <div class="comments" id="comments-${Date.now()}">
+                        <!-- Les commentaires apparaîtront ici -->
+                    </div>
+                    <div class="comment-form">
+                        <input type="text" placeholder="Votre nom" required>
+                        <textarea rows="2" placeholder="Votre commentaire" required></textarea>
+                        <button onclick="addComment(event)">Ajouter un commentaire</button>
+                    </div>
+                `;
+                topicsContainer.prepend(topic);
+
+                document.getElementById('topic-author').value = '';
+                document.getElementById('topic-title').value = '';
+                document.getElementById('topic-message').value = '';
+            }
+        }
+
+        function addComment(event) {
+            const form = event.target.parentElement;
+            const name = form.querySelector('input').value.trim();
+            const comment = form.querySelector('textarea').value.trim();
+            const commentsContainer = form.previousElementSibling;
+
+            if (name && comment) {
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment');
+                newComment.innerHTML = `<strong>${name}:</strong> ${comment}`;
+                commentsContainer.appendChild(newComment);
+
+                form.querySelector('input').value = '';
+                form.querySelector('textarea').value = '';
+            }
+        }
+
+        function toggleStatus(button) {
+            const topic = button.parentElement;
+            const statusElement = topic.querySelector('.status');
+            const currentStatus = statusElement.textContent;
+
+            if (currentStatus === '(En cours)') {
+                statusElement.textContent = '(Fermé)';
+                statusElement.classList.remove('open');
+                statusElement.classList.add('closed');
+                topic.setAttribute('data-status', 'closed');
+            } else {
+                statusElement.textContent = '(En cours)';
+                statusElement.classList.remove('closed');
+                statusElement.classList.add('open');
+                topic.setAttribute('data-status', 'open');
+            }
+        }
+
+        function filterTopics() {
+            const selectedFilter = filterStatus.value;
+            const topics = topicsContainer.querySelectorAll('.topic');
+
+            topics.forEach(topic => {
+                const status = topic.getAttribute('data-status');
+                if (selectedFilter === 'all' || status === selectedFilter) {
+                    topic.style.display = '';
+                } else {
+                    topic.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
