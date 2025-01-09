@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présence & Repas - Mariage Aimery & Elise</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        nav {
+            background-color: #5d9464;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f3f3f3;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #5d9464;
+            color: white;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4a7652;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="programme.html">Programme</a></li>
+            <li><a href="lieu.html">Lieu & Hébergement</a></li>
+            <li><a href="presence.html">Présence & Repas</a></li>
+            <li><a href="liste-mariage.html">Liste de mariage</a></li>
+            <li><a href="contact.html">Nous contacter</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Présence & Repas</h1>
+    </header>
+
+    <div class="content">
+        <h2>Confirmez votre présence et votre choix de repas</h2>
+        <form action="https://formspree.io/f/mdkkpjdb" method="post">
+            <label for="name">Nom et Prénom :</label>
+            <input type="text" id="name" name="name" placeholder="Exemple : Jean Dupont" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" placeholder="Exemple : jean.dupont@example.com" required>
+
+            <label for="cocktail-dinner">Serez-vous présent pour le cocktail et dîner samedi soir ?</label>
+            <select id="cocktail-dinner" name="cocktail-dinner" required>
+                <option value="">-- Choisissez une option --</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+
+            <label for="brunch">Serez-vous présent pour le brunch du dimanche midi ?</label>
+            <select id="brunch" name="brunch" required>
+                <option value="">-- Choisissez une option --</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+
+            <label for="dish">Choix du plat principal :</label>
+            <select id="dish" name="dish">
+                <option value="">-- Sélectionnez un plat (si présent) --</option>
+                <option value="magret">Magret de canard</option>
+                <option value="risotto">Risotto aux girolles</option>
+            </select>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Aimery & Elise - Tous droits réservés</p>
+    </footer>
+</body>
+</html>
