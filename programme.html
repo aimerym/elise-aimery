@@ -12,12 +12,19 @@
             padding: 0;
             color: #333;
             background-color: #f9f9f9;
+            display: flex;
+            height: 100vh;
         }
 
         nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             background-color: #5d9464;
             padding: 10px 0;
             text-align: center;
+            z-index: 10;
         }
 
         nav ul {
@@ -41,25 +48,39 @@
             text-decoration: underline;
         }
 
-        header {
-            text-align: center;
-            padding: 20px;
-            background-color: #f3f3f3;
+        .left-banner {
+            background: url('Images\Chateau-Grange-Cochard-scaled.jpg') no-repeat center center/cover;
+            width: 50%;
+            height: 100%;
         }
 
-        header h1 {
-            margin: 0;
+        .right-content {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .right-content h1 {
+            margin: 0 0 20px;
             font-size: 2.5em;
         }
 
-        .content {
-            padding: 20px;
-            text-align: center;
+        .right-content h2 {
+            margin-top: 20px;
         }
 
-        .content p {
+        .right-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .right-content ul li {
             font-size: 1.2em;
-            margin: 20px 0;
+            margin: 5px 0; /* Réduction de l'espacement vertical */
         }
 
         a.mail-link {
@@ -100,17 +121,18 @@
         </ul>
     </nav>
 
-    <header>
-        <h1>Programme</h1>
-    </header>
+    <div class="left-banner"></div>
 
-    <div class="content">
+    <div class="right-content">
+        <h1>Programme</h1>
+
         <h2>Samedi 30 Août 2025</h2>
         <ul>
             <li><strong>16h30 :</strong> Cérémonie laïque</li>
             <li><strong>17h30 :</strong> Cocktail</li>
             <li><strong>20h :</strong> Dîner</li>
             <li><strong>23h30 :</strong> Soirée dansante</li>
+            <li><strong>5h30 :</strong> Repos !</li>
         </ul>
 
         <h2>Dimanche 31 Août 2025</h2>
@@ -120,5 +142,21 @@
 
         <a href="index.html" class="btn">Retour à l'accueil</a>
     </div>
+
+<style>
+    .right-content h2 {
+        font-size: 1.7em;
+        margin-bottom: 10px; /* Réduit l'espace sous la date */
+    }
+
+    .right-content ul {
+        margin-top: 0; /* Réduit l'espace entre la date et la liste */
+    }
+
+    .right-content ul li {
+        font-size: 1.4em;
+        margin: 8px 0; /* Espacement réduit entre les éléments de la liste */
+    }
+</style>
 </body>
 </html>
