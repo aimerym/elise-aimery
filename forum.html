@@ -202,84 +202,127 @@
         </div>
     </div>
 
-    <script>
-        const topicsContainer = document.getElementById('topics');
-        const filterStatus = document.getElementById('filter-status');
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        document.addEventListener('DOMContentLoaded', () => {
-            filterStatus.value = 'open';
-            filterTopics();
-        });
+        const firebaseConfig = {
+            apiKey: "AIzaSyCLb6HImMi2Oa-Yq0dDSWrYuEJ6cq3LeWo",
+            authDomain: "forum-mariage.firebaseapp.com",
+            projectId: "forum-mariage",
+            storageBucket: "forum-mariage.firebasestorage.app",
+            messagingSenderId: "913274572930",
+            appId: "1:913274572930:web:47a2f62f724fd27e19e49b",
+            measurementId: "G-GDS10Z7WT9"
+        };
 
-        function addTopic() {
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.addTopic = async function() {
             const author = document.getElementById('topic-author').value.trim();
             const title = document.getElementById('topic-title').value.trim();
             const category = document.getElementById('topic-category').value;
             const message = document.getElementById('topic-message').value.trim();
 
             if (author && title && message) {
-                const topic = document.createElement('div');
-                topic.classList.add('topic');
-                topic.setAttribute('data-status', 'open');
-                topic.innerHTML = `
-                    <button class="status-button" onclick="toggleStatus(this)">Ouvrir/Fermer le sujet</button>
-                    <h3>${title} <span style="font-size: 0.8em; color: #777;">(par ${author}, ${category})</span> - <span class="status open">(En cours)</span></h3>
-                    <p>${message}</p>
-                    <div class="comments" id="comments-${Date.now()}">
-                        <!-- Les commentaires apparaîtront ici -->
-                    </div>
-                    <div class="comment-form">
-                        <input type="text" placeholder="Votre nom" required>
-                        <textarea rows="2" placeholder="Votre commentaire" required></textarea>
-                        <button onclick="addComment(event)">Ajouter un commentaire</button>
-                    </div>
-                `;
-                topicsContainer.prepend(topic);
-
-                document.getElementById('topic-author').value = '';
-                document.getElementById('topic-title').value = '';
-                document.getElementById('topic-message').value = '';
+                try {
+                    await addDoc(collection(db, "topics"), {
+                        author,
+                        title,
+                        category,
+                        message,
+                        status: "open",
+                        timestamp: serverTimestamp()
+                    });
+                    alert("Sujet créé !");
+                } catch (error) {
+                    console.error("Erreur :", error);
+                }
             }
-        }
+        };
 
-        function addComment(event) {
-            const form = event.target.parentElement;
-            const name = form.querySelector('input').value.trim();
-            const comment = form.querySelector('textarea').value.trim();
-            const commentsContainer = form.previousElementSibling;
+        window.loadTopics = function() {
+            const topicsContainer = document.getElementById('topics');
+            const q = query(collection(db, "topics"), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snapshot) => {
+                topicsContainer.innerHTML = ""; // Vide l'ancien contenu
+                snapshot.forEach(doc => {
+                    const topic = doc.data();
+                    const topicElement = document.createElement('div');
+                    topicElement.classList.add('topic');
+                    topicElement.setAttribute('data-id', doc.id);
+                    topicElement.setAttribute('data-status', topic.status);
+                    topicElement.innerHTML = `
+                        <button class="status-button" onclick="toggleStatus('${doc.id}', '${topic.status}')">Ouvrir/Fermer le sujet</button>
+                        <h3>${topic.title} <span style="font-size: 0.8em; color: #777;">(par ${topic.author}, ${topic.category})</span> - <span class="status ${topic.status}">(${topic.status === 'open' ? 'En cours' : 'Fermé'})</span></h3>
+                        <p>${topic.message}</p>
+                        <div class="comments" id="comments-${doc.id}">
+                            <!-- Les commentaires apparaîtront ici -->
+                        </div>
+                        <div class="comment-form">
+                            <input type="text" placeholder="Votre nom" required>
+                            <textarea rows="2" placeholder="Votre commentaire" required></textarea>
+                            <button onclick="addComment('${doc.id}')">Ajouter un commentaire</button>
+                        </div>
+                    `;
+                    topicsContainer.appendChild(topicElement);
+                    loadComments(doc.id); // Charger les commentaires associés
+                });
+            });
+        };
 
-            if (name && comment) {
-                const newComment = document.createElement('div');
-                newComment.classList.add('comment');
-                newComment.innerHTML = `<strong>${name}:</strong> ${comment}`;
-                commentsContainer.appendChild(newComment);
+        window.addComment = async function(topicId) {
+            const nameInput = document.querySelector(`#comments-${topicId} + .comment-form input`);
+            const messageInput = document.querySelector(`#comments-${topicId} + .comment-form textarea`);
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
 
-                form.querySelector('input').value = '';
-                form.querySelector('textarea').value = '';
+            if (name && message) {
+                try {
+                    await addDoc(collection(db, "topics", topicId, "comments"), {
+                        name,
+                        message,
+                        timestamp: serverTimestamp()
+                    });
+                    nameInput.value = '';
+                    messageInput.value = '';
+                    alert("Commentaire ajouté !");
+                } catch (error) {
+                    console.error("Erreur :", error);
+                }
             }
-        }
+        };
 
-        function toggleStatus(button) {
-            const topic = button.parentElement;
-            const statusElement = topic.querySelector('.status');
-            const currentStatus = statusElement.textContent;
+        window.loadComments = function(topicId) {
+            const commentsContainer = document.getElementById(`comments-${topicId}`);
+            const q = query(collection(db, "topics", topicId, "comments"), orderBy("timestamp", "asc"));
+            onSnapshot(q, (snapshot) => {
+                commentsContainer.innerHTML = ""; // Vide l'ancien contenu
+                snapshot.forEach(doc => {
+                    const comment = doc.data();
+                    const commentElement = document.createElement('div');
+                    commentElement.classList.add('comment');
+                    commentElement.innerHTML = `<strong>${comment.name}:</strong> ${comment.message}`;
+                    commentsContainer.appendChild(commentElement);
+                });
+            });
+        };
 
-            if (currentStatus === '(En cours)') {
-                statusElement.textContent = '(Fermé)';
-                statusElement.classList.remove('open');
-                statusElement.classList.add('closed');
-                topic.setAttribute('data-status', 'closed');
-            } else {
-                statusElement.textContent = '(En cours)';
-                statusElement.classList.remove('closed');
-                statusElement.classList.add('open');
-                topic.setAttribute('data-status', 'open');
+        window.toggleStatus = async function(topicId, currentStatus) {
+            const newStatus = currentStatus === "open" ? "closed" : "open";
+            try {
+                await updateDoc(doc(db, "topics", topicId), {
+                    status: newStatus
+                });
+            } catch (error) {
+                console.error("Erreur :", error);
             }
-        }
+        };
 
-        function filterTopics() {
-            const selectedFilter = filterStatus.value;
-            const topics = topicsContainer.querySelectorAll('.topic');
+        window.filterTopics = function() {
+            const selectedFilter = document.getElementById('filter-status').value;
+            const topics = document.querySelectorAll('.topic');
 
             topics.forEach(topic => {
                 const status = topic.getAttribute('data-status');
@@ -289,7 +332,9 @@
                     topic.style.display = 'none';
                 }
             });
-        }
+        };
+
+        document.addEventListener('DOMContentLoaded', loadTopics);
     </script>
 </body>
 </html>
