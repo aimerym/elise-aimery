@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Mariage Aimery & Elise</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         /* Style général */
         body {
@@ -62,7 +61,7 @@
 
         .banner-text {
             position: absolute;
-            top: 80%;
+            top: 85%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -97,6 +96,17 @@
         .btn:hover {
             background-color: #4a7652;
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .banner-text h1 {
+                font-size: 2.5em;
+            }
+
+            .banner-text p {
+                font-size: 1.2em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -105,20 +115,20 @@
             <li><a href="index.html">Accueil</a></li>
             <li><a href="programme.html">Programme</a></li>
             <li><a href="lieu.html">Lieu & Hébergement</a></li>
-            <li><a href="presence.html">Présence & Repas</a></li>
+            <li><a href="presence - Copie - Copie.html">Présence & Repas</a></li>
             <li><a href="liste-mariage.html">Liste de mariage</a></li>
             <li><a href="forum.html">Forum</a></li>
             <li><a href="contact.html">Nous contacter</a></li>
         </ul>
     </nav>
 
-    <div class="banner">
-        <img src="Images\IMG-20241201-WA0011.jpg" alt="Château Grange Cochard">
+    <header class="banner">
+        <img src="Images/IMG-20241201-WA0011.jpg" alt="Château Grange Cochard">
         <div class="banner-text">
             <h1>Aimery & Elise</h1>
             <p>30 Août 2025</p>
         </div>
-    </div>
+    </header>
 
     <main>
         <h2>Bienvenue sur notre site de mariage</h2>
