@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Présence & Repas - Mariage Aimery & Elise</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,39 +55,34 @@
             padding: 20px;
         }
 
-        form {
-            max-width: 500px;
-            margin: auto;
-            background: #f9f9f9;
-            padding: 20px;
+        iframe {
+            width: 100%;
+            height: 600px; /* Ajustez la hauteur selon vos besoins */
+            border: none;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        input, select, button {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
+        .footer {
+            text-align: center;
+            padding: 10px;
             background-color: #5d9464;
             color: white;
-            border: none;
-            margin-top: 15px;
-            cursor: pointer;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
 
-        button:hover {
-            background-color: #4a7652;
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            iframe {
+                height: 800px; /* Ajustez la hauteur pour les écrans plus petits */
+            }
         }
     </style>
 </head>
@@ -108,39 +102,10 @@
         <h1>Présence & Repas</h1>
     </header>
 
-    <div class="content">
+    <main class="content">
         <h2>Confirmez votre présence et votre choix de repas</h2>
-        <form action="https://formspree.io/f/mdkkpjdb" method="post">
-            <label for="name">Nom et Prénom :</label>
-            <input type="text" id="name" name="name" placeholder="Exemple : Jean Dupont" required>
-
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" placeholder="Exemple : jean.dupont@example.com" required>
-
-            <label for="cocktail-dinner">Serez-vous présent pour le cocktail et dîner samedi soir ?</label>
-            <select id="cocktail-dinner" name="cocktail-dinner" required>
-                <option value="">-- Choisissez une option --</option>
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
-            </select>
-
-            <label for="brunch">Serez-vous présent pour le brunch du dimanche midi ?</label>
-            <select id="brunch" name="brunch" required>
-                <option value="">-- Choisissez une option --</option>
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
-            </select>
-
-            <label for="dish">Choix du plat principal :</label>
-            <select id="dish" name="dish">
-                <option value="">-- Sélectionnez un plat (si présent) --</option>
-                <option value="magret">Magret de canard</option>
-                <option value="risotto">Risotto aux girolles</option>
-            </select>
-
-            <button type="submit">Envoyer</button>
-        </form>
-    </div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScDSxqF4SBipO8K9euA0CWrDe9k2ppQZWqhugs2-tbU1sOyiA/viewform?usp=header" title="Formulaire de présence et repas"></iframe>
+    </main>
 
     <footer class="footer">
         <p>&copy; 2025 Aimery & Elise - Tous droits réservés</p>
