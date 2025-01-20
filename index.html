@@ -36,6 +36,7 @@
             text-decoration: none;
             color: white;
             font-weight: bold;
+            font-size: 16px; /* Ajustez la taille du texte pour qu'elle soit cohérente */
         }
 
         nav ul li a:hover {
@@ -64,15 +65,16 @@
             top: 85%;
             left: 50%;
             transform: translate(-50%, -50%);
+            white-space: nowrap; /* Empêche le texte de se diviser en plusieurs lignes */
         }
 
         .banner-text h1 {
-            font-size: 3em;
+            font-size: 4em; /* Grossit le texte sur ordinateur */
             margin: 0;
         }
 
         .banner-text p {
-            font-size: 1.5em;
+            font-size: 2em; /* Grossit le texte sur ordinateur */
             margin: 10px 0 0;
         }
 
@@ -100,11 +102,24 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .banner-text h1 {
-                font-size: 2.5em;
+                font-size: 2.5em; /* Réduit la taille du texte sur les petits écrans */
             }
 
             .banner-text p {
-                font-size: 1.2em;
+                font-size: 1.2em; /* Réduit la taille du texte sur les petits écrans */
+            }
+
+            main h2 {
+                font-size: 1.5em;
+            }
+
+            main p {
+                font-size: 1em;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 1em;
             }
         }
     </style>
@@ -114,7 +129,7 @@
         <ul>
             <li><a href="index.html">Accueil</a></li>
             <li><a href="programme.html">Programme</a></li>
-            <li><a href="presence.html">Infos pratiques & Présence</a></li>			
+            <li><a href="presence.html">Infos pratiques & Présence</a></li>
             <li><a href="lieu.html">Lieu & Hébergement</a></li>
             <li><a href="liste-mariage.html">Liste de mariage</a></li>
             <li><a href="forum.html">Forum</a></li>
@@ -132,7 +147,7 @@
 
     <main>
         <h2>Bienvenue sur notre site de mariage</h2>
-        <p>Nous avons hâte de célébrer cette journée spéciale avec vous au magnifique Château Grange Cochard.</p>
+        <p>Nous avons hâte de célébrer cette journée spéciale avec vous au Château Grange Cochard.</p>
         <a class="btn" href="programme.html">Découvrir le programme</a>
     </main>
 </body>
