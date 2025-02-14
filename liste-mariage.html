@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste de Mariage - Aimery & Elise</title>
     <style>
+        /* Style général */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -16,6 +17,7 @@
             min-height: 100vh;
         }
 
+        /* Menu de navigation */
         nav {
             background-color: #5d9464;
             padding: 10px 0;
@@ -43,6 +45,7 @@
             text-decoration: underline;
         }
 
+        /* Header */
         header {
             text-align: center;
             padding: 20px;
@@ -54,88 +57,52 @@
             font-size: 2.5em;
         }
 
+        /* Contenu principal */
         .content {
             padding: 20px;
             flex: 1;
         }
 
+        /* Introduction */
         .intro {
             text-align: center;
             margin-bottom: 20px;
             font-size: 1.2em;
-            color: #5d9464;
+            color: #000; /* Texte en noir */
+            line-height: 1.6; /* Ajoute un espacement entre les lignes pour une meilleure lisibilité */
         }
 
-        .gift-list {
+        /* Lien vers la liste de mariage */
+        .gift-list-link {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            margin-top: 20px;
         }
 
-        .gift-item {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            width: 300px;
-        }
-
-        .gift-item img {
-            max-width: 100%;
-            height: auto;
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-        }
-
-        .gift-item h2 {
-            margin: 0;
-            font-size: 1.5em;
-            color: #5d9464;
-        }
-
-        .gift-item p {
-            margin: 10px 0;
-            color: #666;
-        }
-
-        .gift-item a {
+        .gift-list-link a {
             display: inline-block;
-            margin-top: 10px;
             padding: 10px 20px;
             background-color: #5d9464;
             color: white;
             text-decoration: none;
             border-radius: 4px;
+            font-size: 1.2em;
         }
 
-        .gift-item a:hover {
+        .gift-list-link a:hover {
             background-color: #4a7652;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #5d9464;
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-            margin-top: auto;
-        }
-
-        .footer a {
-            color: white;
-            text-decoration: underline;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .gift-item {
-                width: 100%;
+            .intro {
+                font-size: 1em;
+                line-height: 1.4;
+            }
+
+            .gift-list-link a {
+                font-size: 1em;
             }
         }
     </style>
@@ -144,9 +111,8 @@
     <nav>
         <ul>
             <li><a href="index.html">Accueil</a></li>
-            <li><a href="programme.html">Programme</a></li>
-            <li><a href="presence.html">Infos pratiques & Présence</a></li>					
-            <li><a href="lieu.html">Lieu & Hébergement</a></li>
+            <li><a href="programme.html">Programme</a></li>			
+            <li><a href="presence.html">RSVP & infos pratiques</a></li>
             <li><a href="liste-mariage.html">Liste de mariage</a></li>
             <li><a href="forum.html">Forum</a></li>
             <li><a href="contact.html">Nous contacter</a></li>
@@ -159,25 +125,15 @@
 
     <main class="content">
         <div class="intro">
-            Pour nous aider à célébrer ce jour spécial, vous pouvez consulter notre liste de mariage.
+            Votre présence à notre mariage est le plus beau des cadeaux !<br>
+            Si vous souhaitez tout de même faire un geste, plutôt qu’une liste de mariage traditionnelle, nous vous proposons de participer à notre voyage de noces.<br>
+            Une urne sera également mise à disposition sur place si cela vous convient mieux.<br>			
+            Votre contribution, petite ou grande, nous aidera à créer des souvenirs inoubliables pour cette belle aventure à deux.<br>
+            Un immense merci d’avance pour votre générosité !
         </div>
-        <div class="gift-list">
-            <!-- Exemple d'élément de la liste de mariage -->
-            <div class="gift-item">
-                <img src="Images/Noces.jpg" alt="Cadeau 1">
-                <h2>Voyage de noces</h2>
-                <p>Participation à notre voyage de noces !</p>
-                <a href="lien_vers_cadeau_1" target="_blank">Voir le cadeau</a>
-            </div>
-            <div class="gift-item">
-                <img src="Images/Lit.jpg" alt="Cadeau 2">
-                <h2>Ameublement</h2>
-                <p>Participation à nos nouveaux meubles</p>
-                <a href="lien_vers_cadeau_2" target="_blank">Voir le cadeau</a>
-            </div>
-            <!-- Ajoutez plus d'éléments de la liste de mariage ici -->
+        <div class="gift-list-link">
+            <a href="https://www.millemercismariage.com/aimerym/liste.html" target="_blank">Accéder à la liste de mariage</a>
         </div>
     </main>
-
 </body>
 </html>
