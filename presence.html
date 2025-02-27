@@ -44,12 +44,30 @@
             text-align: center;
             padding: 20px;
             background-color: #f3f3f3;
+            position: relative;
         }
 
         header h1 {
             margin: 0;
             font-size: 2.5em;
         }
+
+        .scroll-down-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #5d9464;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .scroll-down-btn:hover {
+            background-color: #4a7652;
+        }
+
 
         .content {
             padding: 20px;
@@ -143,6 +161,7 @@
 
     <header>
         <h1>RSVP & infos pratiques</h1>
+        <a href="#formulaire-reponse" class="scroll-down-btn">Aller au formulaire de réponse</a>
     </header>
 
     <main class="content">
@@ -196,7 +215,7 @@
             <p>Les animaux ne sont pas autorisés au sein du Château Grange Cochard.</p>
         </section>		
 
-        <section class="info">
+       <section class="info" id="formulaire-reponse">
             <div class="grid-container">
                 <div>
                     <h2>Formulaire de réponse</h2>
